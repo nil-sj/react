@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 import { Card, CardImg, CardText, CardBody, Breadcrumb, BreadcrumbItem, 
         Button, Modal, ModalHeader, ModalBody, Label } from 'reactstrap';
-import { Control, LocalForm } from 'react-redux-form';
+import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Link } from 'react-router-dom';
 
+
+const maxLength = len => val => !val || (val.length <= len);
+const minLength = len => val => val && (val.length >= len);
 
 function RenderCampsite({campsite}) {
     return (
@@ -66,6 +69,7 @@ class CommentForm extends Component {
 
     handleSubmit(values) {
         alert('Current state is: ' + JSON.stringify(values));
+        console.log('Current state is: ' + JSON.stringify(values));
         this.toggleModal();
     }
 
@@ -96,7 +100,22 @@ class CommentForm extends Component {
                             
                             <div className="form-group">
                                 <Label htmlFor="author">Your Name</Label>
-                                <Control.text model=".author" id="author" name="author" placeholder="Your Name" className="form-control"/>
+                                <Control.text model=".author" id="author" name="author" placeholder="Your Name" className="form-control"
+                                    validators={{
+                                        minLength: minLength(2),
+                                        maxLength: maxLength(15)
+                                    }}
+                                />
+                                <Errors
+                                    className="text-danger"
+                                    model=".author"
+                                    show="touched"
+                                    component="div"
+                                    messages={{
+                                        minLength: 'Must be at least 2 characters',
+                                        maxLength: 'Must be 15 characters or less'
+                                    }}
+                                />
                             </div>
 
                             <div className="form-group">
