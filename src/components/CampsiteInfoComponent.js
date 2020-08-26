@@ -85,11 +85,12 @@ class CommentForm extends Component {
                             <div className="form-group">
                                 <Label htmlFor="rating">Rating</Label>
                                 <Control.select model=".rating" id="rating" name="rating" className="form-control">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
+                                    <option hidden disabled selected value>Select a rating</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
                                 </Control.select>
                             </div>
                             
@@ -100,7 +101,7 @@ class CommentForm extends Component {
 
                             <div className="form-group">
                                 <Label htmlFor="text">Comment</Label>
-                                <Control.textarea model=".text" id="text" name="text" rows="12" className="form-control" />
+                                <Control.textarea model=".text" id="text" name="text" rows="6" className="form-control" />
                             </div>
 
                             <div className="form-group">
