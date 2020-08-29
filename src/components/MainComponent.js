@@ -9,7 +9,7 @@ import CampsiteInfo from './CampsiteInfoComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { actions } from 'react-redux-form';
-import { postComment, fetchCampsites, fetchComments, fetchPromotions } from '../redux/ActionCreators';
+import { postComment, fetchCampsites, fetchComments, fetchPromotions, fetchPartners } from '../redux/ActionCreators';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 const mapStateToProps = state => {
@@ -17,7 +17,7 @@ const mapStateToProps = state => {
         campsites: state.campsites,
         comments: state.comments,
         partners: state.partners,
-        promotions: state.promotions
+        promotions: state.promotions,
     };
 };
 
@@ -26,7 +26,8 @@ const mapDispatchToProps = {
     fetchCampsites: () => (fetchCampsites()),
     resetFeedbackForm: () => (actions.reset('feedbackForm')),
     fetchComments: () => (fetchComments()),
-    fetchPromotions: () => (fetchPromotions())
+    fetchPromotions: () => (fetchPromotions()),
+    fetchPartners: () => (fetchPartners())
 };
 
 
@@ -36,6 +37,7 @@ class Main extends Component {
         this.props.fetchCampsites();
         this.props.fetchComments();
         this.props.fetchPromotions();
+        this.props.fetchPartners();
     }
 
     render() {
@@ -49,7 +51,9 @@ class Main extends Component {
                     promotion={this.props.promotions.promotions.filter(promotion => promotion.featured)[0]}
                     promotionLoading={this.props.promotions.isLoading}
                     promotionErrMess={this.props.promotions.errMess}
-                    partner={this.props.partners.filter(partner => partner.featured)[0]}
+                    partner={this.props.partners.partners.filter(partner => partner.featured)[0]}
+                    partnerLoading={this.props.partners.isLoading}
+                    partnerErrMess={this.props.partners.errMess}
                 />
             );
         }
